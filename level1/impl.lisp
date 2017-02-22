@@ -193,6 +193,8 @@
   (once-only (key default)
     `(setf (getf ,place ,key) (getf ,place ,key ,default))))
 
+(defvar *default-binder* 'let)
+
 (defun preprocess-symopts (symopt? pattern)
   "Ensure the symopts being a list, plus sets some default values."
   (match0 (ensure-list symopt?)
@@ -211,7 +213,7 @@
              :conflicts `((,sym) ,(mapcar #'car *lexvars*)))
      (destructuring-bind (&key
                           (type t)
-                          (binder 'let)
+                          (binder *default-binder*)
                           (ignorable (if (symbol-package sym) nil t))
                           dynamic-extent
                           special

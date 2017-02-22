@@ -10,7 +10,8 @@
            :correct-pattern
            :preprocess-symopts
            :*trace-dispatching*
-           :trace-when))
+           :trace-when
+           :*default-binder*))
 
 (defpackage :trivia.fail (:export :fail))
 (defpackage :trivia.skip (:export :skip))
