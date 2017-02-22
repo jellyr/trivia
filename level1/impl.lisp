@@ -269,7 +269,7 @@
      (let ((*lexvars* (cons symopts *lexvars*)))
        (ematch0 symopts
          ((list* symbol options)
-          `(,@(case (getf options :binder)
+          `(,@(ecase (getf options :binder)
                 (symbol-macrolet
                   (signal 'place-pattern)
                   `(symbol-macrolet ((,symbol ,arg))))
