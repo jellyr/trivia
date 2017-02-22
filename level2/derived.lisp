@@ -330,21 +330,29 @@ by an and pattern."
   ;; optional arguments in defpattern is defaulted to _, not nil
   `(guard1 (,place :binder symbol-macrolet) t ,place ,eager))
 
-
-(defpattern progv (name)
-  "Binds the current matching value to a dynamic variable named by NAME.
-NAME is evaluated and should evaluate to a symbol.
-In another word, the variable to bind the value can be altered in runtime."
-  `(guard1 (,place :binder progv) t))
-
-
 (defpattern cl:complex (r i)
   "Destructure a complex number."
   (with-gensyms (it)
     `(guard1 ,it (numberp ,it) (realpart ,it) ,r (imagpart ,it) ,i)))
 
-(defpattern dynamic (variable)
+(defpattern dynamic-extent (variable)
   "Takes a single variable.
 Declares that the value bound to the variable has a dynamic-extent."
   (check-type variable symbol)
   `(guard1 (,variable :DYNAMIC-EXTENT t) t))
+
+
+(defpattern dynamic-pattern (pattern)
+  "Binds the current matching value to a dynamic variable named by NAME.
+NAME is evaluated and should evaluate to a symbol.
+In another word, the variable to bind the value can be altered in runtime."
+
+  ;; my eroded brain has stopped thinking here.
+  ;; (let ((*default-binder* `progv))
+  ;;   (let ((matcher (eval `(match
+  ;; 
+  ;; pattern-expand-all
+  ;; compile + cache the function
+  ;; 
+  ;; `(guard1 (,place :binder progv) t)
+  )
